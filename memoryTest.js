@@ -67,7 +67,9 @@ function setupTime(a, b) {
             }
         } else {
             text.style.visibility = 'visible'
-            text.innerHTML = 'End'
+            text.innerHTML = '...'
+            btnVisible(btnEndVisible)
+            btnHidden(btnEndDisable)
             clearInterval(myTime)
             setTimeout(() => {
                 formStyles.style.display = 'block'
@@ -83,20 +85,24 @@ function radomLengthNumbers(number) {
         let radomNumner = Math.floor(Math.random() * 10)
         html += radomNumner
     }
-    return Number(html)
+    return html
 }
 
 function radomLengthArrs(arrmax, arrmin, numberMax, numberMin) {
     const radomLengthArr =
         Math.floor(Math.random() * (arrmax - arrmin + 1)) + arrmin
-    const radomLengthNumber =
-        Math.floor(Math.random() * (numberMax - numberMin + 1)) + numberMin
+   
     const Number = []
     for (let i = 0; i < radomLengthArr; i++) {
+        const radomLengthNumber =
+        Math.floor(Math.random() * (numberMax - numberMin + 1)) + numberMin
         Number.push(radomLengthNumbers(radomLengthNumber))
+        console.log(radomLengthNumber)
     }
     return Number
 }
+
+
 
 function arrNumber(ar, max, min, numberMax, numberMin) {
     for (let i = 0; i < ar; i++) {
