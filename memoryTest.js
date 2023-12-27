@@ -190,7 +190,7 @@ function showNumber() {
         }
     } else if ($(bienso) == 'bienso') {
         for (let i = 0; i < dataMemory.length; i++) {
-            html += ` ${i} </br> ${dataMemory[i]} </br>  </br>`
+            html += ` <div class="showContent"><span class="numberContent"> ${i} </span> </br> ${dataMemory[i]} </br>  </br> </div>`
         }
     }
     clearInterval(myTime)
