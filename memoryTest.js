@@ -17,6 +17,8 @@ const btnShowMess = document.getElementById('btn-show')
 const btnResume = document.getElementById('resume')
 const btnEndGame = document.getElementById('btn-endGame')
 const btnReStart = document.getElementById('btnReStart')
+const item = document.getElementById('radomItem')
+
 const btnStartDisable = [btnShowMess, btnStart, btnResume, btnReStart]
 const btnEndDisable = [btnEndGame, btnResume, btnPause]
 const btnEndVisible = [btnStart, btnReStart, btnShowMess]
@@ -44,21 +46,21 @@ function btnHidden(arr) {
     })
 }
 
-function setupTime(a, b) {
+function setupTime(arr,a, b) {
     myTime = setInterval(() => {
         if (count == a + b) {
             i++
             count = 0
         }
 
-        if (i < dataMemory.length) {
+        if (i < arr.length) {
             if (count == 0) {
                 if ($(bienso) == 'so')
-                    text.innerHTML = `<div class='showContent'><span class='numberContent'>${i}</span> </br> ${dataMemory[
+                    text.innerHTML = `<div class='showContent'><span class='numberContent'>${i}</span> </br> ${arr[
                         i
                     ].join('</br>')}</div>`
             } else if ($(bienso) == 'bienso') {
-                text.innerHTML = `<div class='showContent'><span class='numberContent'>${i}</span> </br> ${dataMemory[i]}</div>`
+                text.innerHTML = `<div class='showContent'><span class='numberContent'>${i}</span> </br> ${arr[i]}</div>`
             }
             if (count > a) {
                 text.style.visibility = 'hidden'
@@ -91,7 +93,8 @@ function radomLengthNumbers(number) {
 function radomLengthArrs(arrmax, arrmin, numberMax, numberMin) {
     const radomLengthArr =
         Math.floor(Math.random() * (arrmax - arrmin + 1)) + arrmin
-   
+    
+
     const Number = []
     for (let i = 0; i < radomLengthArr; i++) {
         const radomLengthNumber =
@@ -140,13 +143,13 @@ function innerNumber() {
     }
     i = 0
     count = 0
-    setupTime(Number($(g)), Number($(v)))
+    checkRadomItem()
 }
 
 function resume() {
     btnResume.disabled = true
     btnPause.disabled = false
-    setupTime(Number($(g)), Number($(v)))
+    checkRadomItem()
 }
 
 function pause() {
@@ -171,7 +174,7 @@ function reStart() {
     formStyles.style.display = 'none'
     i = 0
     count = 0
-    setupTime(Number($(g)), Number($(v)))
+    checkRadomItem()
 }
 
 function showNumber() {
@@ -229,6 +232,25 @@ function changeInputString() {
     }
 }
 
+function checkRadomItem(){
+    if(!item.checked){
+        const newArray = [...dataMemory]
+        const radomItem =[]
+
+        while (radomItem.length < dataMemory.length) {
+            const randomIndex = Math.floor(Math.random() * newArray.length);
+            const randomElement = newArray.splice(randomIndex, 1)[0];
+            radomItem.push(randomElement);
+          }
+          
+          setupTime(radomItem,Number($(g)), Number($(v)))
+    }
+        else{
+            setupTime(dataMemory,Number($(g)), Number($(v)))
+        }
+}
+
+
 btnStart.addEventListener('click', innerNumber)
 btnPause.addEventListener('click', pause)
 btnShowMess.addEventListener('click', showNumber)
@@ -236,3 +258,7 @@ btnResume.addEventListener('click', resume)
 bienso.addEventListener('change', changeInputString)
 btnReStart.addEventListener('click', reStart)
 btnEndGame.addEventListener('click', endGame)
+
+
+
+
