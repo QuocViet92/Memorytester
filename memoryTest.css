@@ -2,14 +2,20 @@ body {
     margin: 0;
     font: 13px/1.5 'Helvetica Neue', Arial, 'Liberation Sans', FreeSans,
         sans-serif;
+        width: 100vw;
 }
 form {
     margin-top: 20px;
-    width: 960px;
-    margin-left: auto;
-    margin-right: auto;
 }
+label{
+    margin-bottom: 0px;
+    margin-top: 5px;
+}
+
 .inputfiel {
+    display: flex;
+    flex-direction: column;
+    padding-left: 50px;
     position: relative;
     border: 1px solid black;
     padding-top: 20px;
@@ -28,7 +34,7 @@ form {
     min-height: 1000px;
     background-color: black;
     color: white;
-    margin: 10px 5px 5px 5px;
+    margin: 10px 5px 0px 5px;
     overflow: hidden;
 }
 .title {
@@ -51,7 +57,7 @@ form {
     width: 140px;
 }
 .grid_2 {
-    width: 220px;
+    width: 240px;
 }
 .check-box {
     margin-left: 0;
@@ -64,11 +70,23 @@ form {
 }
 .btn-control {
     margin-top: 10px;
-    width: 960px;
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
 }
 .showContent {
     text-align: center;
 }
 .numberContent {
     color: red;
+}
+
+.container{
+    width: 100%;    
+    display: flex;   
+    justify-content: space-around;
+
+}
+.half{
+    width: 40%;
 }
