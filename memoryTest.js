@@ -1,8 +1,6 @@
 
-
-
 class App{
-    constructor(formId){
+    constructor(id){
         this.data=[]
         this.soMuc = 0
         this.loaiNoiDung = "so"
@@ -20,7 +18,7 @@ class App{
         this.text =''
         this.formStyles=''
         this.inputStringStyles=''
-        this.form = formId  
+        this.form = id  
     }
 
     $(element) {
@@ -28,8 +26,10 @@ class App{
     }
 
     creatHtml(){
-        const form = document.getElementById(this.form);
-        var html =` <form >
+        const form = document.getElementById('innerForm');
+        var html =`
+        <div class='half' id="${this.form}-half">
+         <form >
         <div class="inputfiel" id="${this.form}-form-hiden">
         <div class="title">Điều kiện kiểm tra</div>
         <label class="grid_1">Số mục kiểm tra</label>
@@ -67,9 +67,10 @@ class App{
     <div class="row_space"></div>
         <div class="message">
             <div id="${this.form}inner-Text"></div>
+        </div>
         </div>`
         
-        form.innerHTML = html
+        form.innerHTML += html
 
         const soMuc = this.$(`${this.form}-so-muc`)
         const content = this.$(`${this.form}-select-content`)
@@ -328,5 +329,53 @@ class App{
     }   
 }
 
-new App('form1').creatHtml()
-new App('form2').creatHtml()
+function a(n) {
+    for (let i = 1; i <= n; i++) {
+        new App(i).creatHtml()
+    }
+}
+
+const selectLevel = document.getElementById('selectLevel')
+selectLevel.addEventListener('change',()=>{
+    const form = document.getElementById('innerForm');
+    form.innerHTML=""
+    a(selectLevel.value)
+    if(selectLevel.value == 2){
+        form.classList.add('container2')
+        for(let i = 1 ; i <=i;i++){
+            document.getElementById(`${i}-half`).classList.add("half2")
+            document.getElementById(`${i}-form-hiden`).classList.add('inputfiel1')
+            document.getElementById(`${i}-half`).classList.remove("half3")
+
+        }
+    }
+    else if(selectLevel.value == 3){
+        form.classList.add('container2')
+        for(let i = 1 ; i <=i;i++){
+            document.getElementById(`${i}-half`).classList.add("half3")
+            document.getElementById(`${i}-form-hiden`).classList.add('inputfiel1')
+            document.getElementById(`${i}-half`).classList.remove("half2")
+
+        }
+    }
+    else{
+        form.classList.remove('container2')
+        for(let i = 1 ; i <=i;i++){
+            document.getElementById(`${i}-half`).classList.remove("half3")
+            document.getElementById(`${i}-half`).classList.remove("half2")
+            document.getElementById(`${i}-form-hiden`).classList.remove('inputfiel1')
+
+        }
+    }
+
+  
+})
+new App().creatHtml()
+
+
+
+
+
+
+
+
