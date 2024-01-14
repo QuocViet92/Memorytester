@@ -9,7 +9,7 @@ class App{
         this.arrMin =''
         this.numberMax= ''
         this.numberMin = ''
-        this.thuTuCoDinh = true
+        this.thuTuCoDinh = false
         this.thoiGianAn = 1000
         this.thoiGianHien = 2000
         this.i=0
@@ -107,7 +107,7 @@ class App{
             this.data =[]
             this.soMuc = soMuc.value
             this.soDong =   soDong.value
-            this.thuTuCoDinh = thuTuCoDinh.value
+            this.thuTuCoDinh = thuTuCoDinh.checked
             this.thoiGianAn = thoiGianAn.value
             this.thoiGianHien = thoiGianHien.value
             this.StartMemoryTest()
@@ -132,7 +132,7 @@ class App{
             btnEndGame.disabled = false
             btnReStart.disabled =true
             btnShow.disabled =  true
-            this.setupTime(this.data,Number(this.thoiGianHien),Number(this.thoiGianAn))
+            this.checkItem()
         })
 
         btnEndGame.addEventListener('click',()=>{
@@ -183,10 +183,7 @@ class App{
         }
 
         if(this.loaiNoiDung ==="so"){
-            console.log("so")
-            this.arrNumber(this.soMuc,this.arrMax,this.arrMin,this.numberMax,this.numberMin)
-            console.log(this.data)
-            
+            this.arrNumber(this.soMuc,this.arrMax,this.arrMin,this.numberMax,this.numberMin)           
         }
             else{
                 this.arrrRadom(this.soMuc)
@@ -194,14 +191,14 @@ class App{
 
             this.i= 0
             this.count = 0
-            this.setupTime(this.data,Number(this.thoiGianHien),Number(this.thoiGianAn))
+            this.checkItem()
     }
 
     RestartMemoryTest(){
         this.formStyles.style.display = 'none'
         this.i = 0
         this.count = 0
-        this.setupTime(this.data,Number(this.thoiGianHien),Number(this.thoiGianAn))
+        this.checkItem()
     }
 
     EndMemoryTest(){
@@ -230,7 +227,6 @@ class App{
     }
      
     setupTime(arr,a, b) {
-        this.end=true
         this.myTime = setInterval(() => {
             if (this.count == a + b) {
                 this.i++
@@ -264,7 +260,6 @@ class App{
                 }, 1000)
             }
             this.count = this.count + 100
-            console.log(this.count)
         }, 100)
     }
 
@@ -309,7 +304,6 @@ class App{
             const radomLengthNumber =
             Math.floor(Math.random() * (numberMax - numberMin + 1)) + numberMin
             Number.push(this.radomLengthNumbers(radomLengthNumber))
-            console.log(radomLengthNumber)
         }
         return Number
     }
@@ -318,6 +312,24 @@ class App{
         for (let i = 0; i < ar; i++) {
             this.data.push(this.radomLengthArrs(max, min, numberMax, numberMin))
         }
+    }
+
+    checkItem(){
+        if(this.thuTuCoDinh === false){
+            const newArray = [...this.data]
+            const radomItem =[]
+    
+            while (radomItem.length < this.data.length) {
+                const randomIndex = Math.floor(Math.random() * newArray.length);
+                const randomElement = newArray.splice(randomIndex, 1)[0];
+                radomItem.push(randomElement);
+              }
+              
+              this.setupTime(radomItem,Number(this.thoiGianHien), Number(this.thoiGianAn))
+        }
+            else{
+                this.setupTime(this.data,Number(this.thoiGianHien), Number(this.thoiGianAn))
+            }
     }
 
      changeInputString() {
