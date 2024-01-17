@@ -88,18 +88,21 @@ label{
 
 .container{   
     width: 100%;
+    display: flex;
 }
 .container2{
     display: flex;
 }   
-.half2{
+
+.containerform2{
     width: 45%;
 }
-.half3{
+.containerform3{
     width: 30%;
 }
-.half{
-   
+.hafl{
+   display: flex;
+   flex-direction: column;
 }
 .header{
     padding: 20px;

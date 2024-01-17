@@ -1,4 +1,8 @@
 
+
+function $(element) {
+    return document.getElementById(element)
+}
 class App{
     constructor(id){
         this.data=[]
@@ -18,78 +22,72 @@ class App{
         this.text =''
         this.formStyles=''
         this.inputStringStyles=''
-        this.form = id  
-    }
-
-    $(element) {
-        return document.getElementById(element)
+        this.formId = id  
     }
 
     creatHtml(){
-        const form = document.getElementById('innerForm');
+        const form = document.getElementById(`containerform${this.formId}`);
         var html =`
-        <div class='half' id="${this.form}-half">
-         <form >
-        <div class="inputfiel" id="${this.form}-form-hiden">
+         <form  id="${this.formId}-form">
+        <div class="inputfiel" id="${this.formId}-form-hiden">
         <div class="title">Điều kiện kiểm tra</div>
         <label class="grid_1">Số mục kiểm tra</label>
-        <input class="grid_1" id="${this.form}-so-muc" type="text" value="5" />
+        <input class="grid_1" id="${this.formId}-so-muc" type="text" value="5" />
         <div class="row_space"></div>
         <label class="grid_1">Loại nội dung</label>
-        <select class="grid_1" id="${this.form}-select-content">
+        <select class="grid_1" id="${this.formId}-select-content">
             <option value="so">Số</option>
             <option value="bienso">Biển Số</option>
         </select>
         <label class="element-float-left grid_2">Số dòng; Độ dài mỗi dòng (vd: 3-5; 2-3)</label>
-            <input class="grid_1" type="text" id="${this.form}-inputString" />
+            <input class="grid_1" type="text" id="${this.formId}-inputString" />
         <div class="row_space"></div>
         <label class="grid_1">Sử dụng thứ tự cổ định</label>
         <span class="grid_1">
-            <input class="check-box" type="checkbox" id="${this.form}-radomItem" />
+            <input class="check-box" type="checkbox" id="${this.formId}-radomItem" />
         </span>
         <div class="row_space"></div>
         <label class="grid_2">Thời gian giữa 2 mục (mili-giây)</label>
-        <input class="grid_1" type="text" value="5000" id="${this.form}-time-hide" />
+        <input class="grid_1" type="text" value="5000" id="${this.formId}-time-hide" />
         <div class="row_space"></div>
         <label class="grid_2">Thời gian hiển thị mỗi mục (mili-giây)</label>
-        <input class="grid_1" type="text" id="${this.form}-time-show" value="1000" />
+        <input class="grid_1" type="text" id="${this.formId}-time-show" value="1000" />
         <div class="row_space"></div>
     </div>
     <div class="btn-control">
-        <button class="grid_1" id="${this.form}-btn" type="button">bắt đầu</button>
-        <button class="grid_1" id="${this.form}-btn-pause" type="button" disabled>tạm dừng</button>
-        <button class="grid_1" id="${this.form}resume" type="button" disabled >tiếp tục</button>
-        <button class="grid_1" type="button" id="${this.form}-btn-endGame" disabled >kết thúc</button>
-        <button class="grid_1" type="button" id="${this.form}-btnReStart" disabled >bắt đầu lại</button>
-        <button class="grid_1" id="${this.form}-btn-show" type="button" disabled >hiện kết quả</button>
+        <button class="grid_1" id="${this.formId}-btn" type="button">bắt đầu</button>
+        <button class="grid_1" id="${this.formId}-btn-pause" type="button" disabled>tạm dừng</button>
+        <button class="grid_1" id="${this.formId}resume" type="button" disabled >tiếp tục</button>
+        <button class="grid_1" type="button" id="${this.formId}-btn-endGame" disabled >kết thúc</button>
+        <button class="grid_1" type="button" id="${this.formId}-btnReStart" disabled >bắt đầu lại</button>
+        <button class="grid_1" id="${this.formId}-btn-show" type="button" disabled >hiện kết quả</button>
     </div>
     </form>
     <div class="row_space"></div>
         <div class="message">
-            <div id="${this.form}inner-Text"></div>
-        </div>
+            <div id="${this.formId}inner-Text"></div>
         </div>`
         
-        form.innerHTML += html
+        form.innerHTML = html
 
-        const soMuc = this.$(`${this.form}-so-muc`)
-        const content = this.$(`${this.form}-select-content`)
-        const soDong = this.$(`${this.form}-inputString`)
-        const thuTuCoDinh = this.$(`${this.form}-radomItem`)
-        const thoiGianAn = this.$(`${this.form}-time-hide`)
-        const thoiGianHien = this.$(`${this.form}-time-show`)
+        const soMuc = $(`${this.formId}-so-muc`)
+        const content = $(`${this.formId}-select-content`)
+        const soDong = $(`${this.formId}-inputString`)
+        const thuTuCoDinh = $(`${this.formId}-radomItem`)
+        const thoiGianAn = $(`${this.formId}-time-hide`)
+        const thoiGianHien = $(`${this.formId}-time-show`)
 
-        this.formStyles = this.$(`${this.form}-form-hiden`)
-        this.inputStringStyles=this.$(`${this.form}-inputString-styles`)
-        this.text = this.$(`${this.form}inner-Text`)
+        this.formStyles = $(`${this.formId}-form-hiden`)
+        this.inputStringStyles=$(`${this.formId}-inputString-styles`)
+        this.text = $(`${this.formId}inner-Text`)
         
 
-        const btnPause = this.$(`${this.form}-btn-pause`)
-        const btnStart = this.$(`${this.form}-btn`)
-        const btnResume =this.$(`${this.form}resume`)
-        const btnEndGame = this.$(`${this.form}-btn-endGame`)
-        const btnReStart =this.$(`${this.form}-btnReStart`)
-        const btnShow = this.$(`${this.form}-btn-show`)
+        const btnPause = $(`${this.formId}-btn-pause`)
+        const btnStart = $(`${this.formId}-btn`)
+        const btnResume =$(`${this.formId}resume`)
+        const btnEndGame = $(`${this.formId}-btn-endGame`)
+        const btnReStart =$(`${this.formId}-btnReStart`)
+        const btnShow = $(`${this.formId}-btn-show`)
 
         content.addEventListener('change',()=>{
             this.changeInputString()
@@ -110,7 +108,7 @@ class App{
             this.thuTuCoDinh = thuTuCoDinh.checked
             this.thoiGianAn = thoiGianAn.value
             this.thoiGianHien = thoiGianHien.value
-            this.StartMemoryTest()
+            this.startMemoryTest()
         })
 
         btnPause.addEventListener('click',()=>{
@@ -143,7 +141,7 @@ class App{
             btnEndGame.disabled = true
             btnReStart.disabled =false
             btnShow.disabled =  false
-            this.EndMemoryTest()
+            this.endMemoryTest()
         })
 
         btnReStart.addEventListener('click',()=>{
@@ -153,18 +151,18 @@ class App{
             btnEndGame.disabled = false
             btnReStart.disabled =true
             btnShow.disabled =  true
-            this.RestartMemoryTest()
+            this.restartMemoryTest()
         })
         
         btnShow.addEventListener('click',()=>{
             btnReStart.disabled = true
             btnShow.disabled =  true
-            this.ShowNumberMemoryTest()
+            this.showNumberMemoryTest()
           
         })
     }
 
-    StartMemoryTest(){      
+    startMemoryTest(){      
         let arrayOfPairs
         const regex =  /^\d+-\d+;\d+-\d+$/
         if (regex.test(this.soDong)) {
@@ -194,20 +192,20 @@ class App{
             this.checkItem()
     }
 
-    RestartMemoryTest(){
+    restartMemoryTest(){
         this.formStyles.style.display = 'none'
         this.i = 0
         this.count = 0
         this.checkItem()
     }
 
-    EndMemoryTest(){
+    endMemoryTest(){
         clearInterval(this.myTime)
         this.i = 0
         this.count = 0
     }
 
-    ShowNumberMemoryTest(){
+    showNumberMemoryTest(){
         this.text.style.visibility = 'visible'
         let html = ''
         if (this.loaiNoiDung == 'so') {
@@ -249,12 +247,12 @@ class App{
                 this.text.innerHTML = '...'
                 clearInterval(this.myTime)
                 setTimeout(() => {
-                    this.$(`${this.form}-btn`).disabled =false
-                    this.$(`${this.form}-btn-pause`).disabled =true
-                    this.$(`${this.form}resume`).disabled =true
-                    this.$(`${this.form}-btn-endGame`).disabled =true
-                    this.$(`${this.form}-btnReStart`).disabled =false
-                    this.$(`${this.form}-btn-show`).disabled =false
+                    $(`${this.formId}-btn`).disabled =false
+                    $(`${this.formId}-btn-pause`).disabled =true
+                    $(`${this.formId}resume`).disabled =true
+                    $(`${this.formId}-btn-endGame`).disabled =true
+                    $(`${this.formId}-btnReStart`).disabled =false
+                    $(`${this.formId}-btn-show`).disabled =false
                     this.formStyles.style.display = 'block'
                     console.log('end')
                 }, 1000)
@@ -340,49 +338,39 @@ class App{
         }
     }   
 }
-
+const container = $("container1")
 function a(n) {
     for (let i = 1; i <= n; i++) {
         new App(i).creatHtml()
+        if(n > 1 ){
+            $(`${i}-form-hiden`).classList.add('hafl')
+        }
+        $(`containerform${i}`).style.width = `${100/n}%`
     }
 }
 
-const selectLevel = document.getElementById('selectLevel')
+const selectLevel = $('selectLevel')
 selectLevel.addEventListener('change',()=>{
-    const form = document.getElementById('innerForm');
-    form.innerHTML=""
     a(selectLevel.value)
-    if(selectLevel.value == 2){
-        form.classList.add('container2')
-        for(let i = 1 ; i <=i;i++){
-            document.getElementById(`${i}-half`).classList.add("half2")
-            document.getElementById(`${i}-form-hiden`).classList.add('inputfiel1')
-            document.getElementById(`${i}-half`).classList.remove("half3")
+    if(selectLevel.value == 1 ){
+        $("containerform2").style.width = "0px"
+        $("containerform3").style.width = "0px"
+        $('containerform2').innerHTML = " "
+        $('containerform3').innerHTML = " "
+    }   else if(selectLevel.value ==2){
+        $('containerform3').innerHTML = " "
+    }
+        else{
 
         }
-    }
-    else if(selectLevel.value == 3){
-        form.classList.add('container2')
-        for(let i = 1 ; i <=i;i++){
-            document.getElementById(`${i}-half`).classList.add("half3")
-            document.getElementById(`${i}-form-hiden`).classList.add('inputfiel1')
-            document.getElementById(`${i}-half`).classList.remove("half2")
 
-        }
-    }
-    else{
-        form.classList.remove('container2')
-        for(let i = 1 ; i <=i;i++){
-            document.getElementById(`${i}-half`).classList.remove("half3")
-            document.getElementById(`${i}-half`).classList.remove("half2")
-            document.getElementById(`${i}-form-hiden`).classList.remove('inputfiel1')
-
-        }
-    }
-
-  
 })
-new App().creatHtml()
+a(1)
+
+
+
+
+
 
 
 
