@@ -3,6 +3,9 @@
 function $(element) {
     return document.getElementById(element)
 }
+
+
+
 class App{
     constructor(id){
         this.data=[]
@@ -22,53 +25,80 @@ class App{
         this.text =''
         this.formStyles=''
         this.inputStringStyles=''
+        this.inputString=''
         this.formId = id  
     }
+     createElementWithAttributes(elementName, attrs, children) {
+        // Tạo phần tử
+        var element = document.createElement(elementName);
+      
+        // Thêm thuộc tính cho phần tử
+        if (attrs && typeof attrs === 'object') {
+          for (var key in attrs) {
+            if (attrs.hasOwnProperty(key)) {
+              element.setAttribute(key, attrs[key]);
+            }
+          }
+        }
+      
+        // Thêm thẻ con cho phần tử
+        if (children && children.length > 0) {
+          for (var i = 0; i < children.length; i++) {
+            element.appendChild(children[i]);
+          }
+        }
+      
+        return element;
+      }
 
     creatHtml(){
-        const form = document.getElementById(`containerform${this.formId}`);
-        var html =`
-         <form  id="${this.formId}-form">
-        <div class="inputfiel" id="${this.formId}-form-hiden">
-        <div class="title">Điều kiện kiểm tra</div>
-        <label class="grid_1">Số mục kiểm tra</label>
-        <input class="grid_1" id="${this.formId}-so-muc" type="text" value="5" />
-        <div class="row_space"></div>
-        <label class="grid_1">Loại nội dung</label>
-        <select class="grid_1" id="${this.formId}-select-content">
-            <option value="so">Số</option>
-            <option value="bienso">Biển Số</option>
-        </select>
-        <label class="element-float-left grid_2">Số dòng; Độ dài mỗi dòng (vd: 3-5; 2-3)</label>
-            <input class="grid_1" type="text" id="${this.formId}-inputString" />
-        <div class="row_space"></div>
-        <label class="grid_1">Sử dụng thứ tự cổ định</label>
-        <span class="grid_1">
-            <input class="check-box" type="checkbox" id="${this.formId}-radomItem" />
-        </span>
-        <div class="row_space"></div>
-        <label class="grid_2">Thời gian giữa 2 mục (mili-giây)</label>
-        <input class="grid_1" type="text" value="5000" id="${this.formId}-time-hide" />
-        <div class="row_space"></div>
-        <label class="grid_2">Thời gian hiển thị mỗi mục (mili-giây)</label>
-        <input class="grid_1" type="text" id="${this.formId}-time-show" value="1000" />
-        <div class="row_space"></div>
-    </div>
-    <div class="btn-control">
-        <button class="grid_1" id="${this.formId}-btn" type="button">bắt đầu</button>
-        <button class="grid_1" id="${this.formId}-btn-pause" type="button" disabled>tạm dừng</button>
-        <button class="grid_1" id="${this.formId}resume" type="button" disabled >tiếp tục</button>
-        <button class="grid_1" type="button" id="${this.formId}-btn-endGame" disabled >kết thúc</button>
-        <button class="grid_1" type="button" id="${this.formId}-btnReStart" disabled >bắt đầu lại</button>
-        <button class="grid_1" id="${this.formId}-btn-show" type="button" disabled >hiện kết quả</button>
-    </div>
-    </form>
-    <div class="row_space"></div>
-        <div class="message">
-            <div id="${this.formId}inner-Text"></div>
-        </div>`
+        const form = document.getElementById(`container1`);
+       
+      const formHtml=this.createElementWithAttributes('div',{class:`container-Form${this.formId}`,id:`containerform${this.formId}`},[
+       this.createElementWithAttributes('form',
+       {id:`${this.formId}-form`},
+            [this.createElementWithAttributes('div',{class:'inputfiel',id:`${this.formId}-form-hiden`},
+                 [this.createElementWithAttributes('div',{class:'title'},[document.createTextNode("Điều kiện kiểm tra")]),
+                  this.createElementWithAttributes('label',{class:'grid_1'},[document.createTextNode("Số mục kiểm tra")]),
+                  this.createElementWithAttributes('input',{class:'grid_1',id:`${this.formId}-so-muc`,type:'text',value:5},[]),
+                  this.createElementWithAttributes('div',{class:'row_space'},[]),
+                  this.createElementWithAttributes('label',{class:'grid_1'},[document.createTextNode('Loại nội dung')]),
+                  this.createElementWithAttributes('select',{class:'grid_1',id:`${this.formId}-select-content`},[
+                        this.createElementWithAttributes('option',{value:'so'},[document.createTextNode("Số")]),
+                        this.createElementWithAttributes('option',{value:'bienso'},[document.createTextNode("Biển Số")])
+                  ]),
+                  this.createElementWithAttributes('label',{class:'element-float-left grid_2',id:`${this.formId}-inputString-styles`},[document.createTextNode('Số dòng; Độ dài mỗi dòng (vd: 3-5; 2-3)')]),
+                  this.createElementWithAttributes('input',{class:'grid_1',type:'text',id:`${this.formId}-inputString`},[]),
+                  this.createElementWithAttributes('div',{class:'row_space'},[]),
+                  this.createElementWithAttributes('label',{class:'grid_1'},[document.createTextNode('Sử dụng thứ tự cố định')]),
+                  this.createElementWithAttributes('span',{class:'grid_1'},[
+                        this.createElementWithAttributes('input',{class:'checkbox',type:'checkbox',id:`${this.formId}-radomItem`},[])
+                  ]),
+                  this.createElementWithAttributes('div',{class:'row_space'},[]),
+                  this.createElementWithAttributes('label',{class:'grid_2'},[document.createTextNode('thời gian giữa hai mục (mili-giây)')]),
+                  this.createElementWithAttributes('input',{class:'grid_1',type:'text',value:5000,id:`${this.formId}-time-hide`},[]),
+                  this.createElementWithAttributes('div',{class:'row_space'},[]),
+                  this.createElementWithAttributes('label',{class:'grid_2'},[document.createTextNode('Thời gian hiển thị mỗi mục (mili-giây)')]),
+                  this.createElementWithAttributes('input',{class:'grid_1',type:'text',id:`${this.formId}-time-show`,value:1000},[])
+
+                  ]
+            ),
+             this.createElementWithAttributes('div',{class:'btn-control'},[
+                  this.createElementWithAttributes('button',{class:'grid_1',id:`${this.formId}-btn`,type:'button'},[document.createTextNode('bắt đầu')]),
+                  this.createElementWithAttributes('button',{class:'grid_1',id:`${this.formId}-btn-pause`,type:'button',disabled:true},[document.createTextNode('tạm dừng')]),
+                  this.createElementWithAttributes('button',{class:'grid_1',id:`${this.formId}resume`,type:'button', disabled:true},[document.createTextNode('tiếp tục')]),
+                  this.createElementWithAttributes('button',{class:'grid_1',id:`${this.formId}-btn-endGame`,type:'button', disabled:true},[document.createTextNode('kết thúc')]),
+                  this.createElementWithAttributes('button',{class:'grid_1',id:`${this.formId}-btnReStart`,type:'button', disabled:true},[document.createTextNode('bắt đầu lại')]),
+                  this.createElementWithAttributes('button',{class:'grid_1',id:`${this.formId}-btn-show`,type:'button', disabled:true},[document.createTextNode('hiện kết quả')]),
+             ])
+            ]
+       ),
+       this.createElementWithAttributes('div',{class:'message'},[
+            this.createElementWithAttributes('div',{id:`${this.formId}inner-Text`})
+       ])
+    ])
         
-        form.innerHTML = html
+        form.appendChild(formHtml) 
 
         const soMuc = $(`${this.formId}-so-muc`)
         const content = $(`${this.formId}-select-content`)
@@ -79,6 +109,7 @@ class App{
 
         this.formStyles = $(`${this.formId}-form-hiden`)
         this.inputStringStyles=$(`${this.formId}-inputString-styles`)
+        this.inputString = $(`${this.formId}-inputString`)
         this.text = $(`${this.formId}inner-Text`)
         
 
@@ -90,6 +121,8 @@ class App{
         const btnShow = $(`${this.formId}-btn-show`)
 
         content.addEventListener('change',()=>{
+            this.loaiNoiDung = content.value
+            console.log('change')
             this.changeInputString()
         })
 
@@ -331,15 +364,23 @@ class App{
     }
 
      changeInputString() {
-        if (this.loaiNoiDung === 'so') {
+        console.log('inputString')
+        console.log(this.loaiNoiDung)
+        if (this.loaiNoiDung == 'so') {
+            console.log("so")
             this.inputStringStyles.style.display = 'block'
-        } else {
+            this.inputString.style.display= 'block'
+        } else if(this.loaiNoiDung == 'bienso'){
+            console.log('bienso')
             this.inputStringStyles.style.display = 'none'
+            this.inputString.style.display= 'none'
         }
     }   
 }
+
 const container = $("container1")
 function a(n) {
+    document.getElementById(`container1`).innerHTML =""
     for (let i = 1; i <= n; i++) {
         new App(i).creatHtml()
         if(n > 1 ){
@@ -352,18 +393,6 @@ function a(n) {
 const selectLevel = $('selectLevel')
 selectLevel.addEventListener('change',()=>{
     a(selectLevel.value)
-    if(selectLevel.value == 1 ){
-        $("containerform2").style.width = "0px"
-        $("containerform3").style.width = "0px"
-        $('containerform2').innerHTML = " "
-        $('containerform3').innerHTML = " "
-    }   else if(selectLevel.value ==2){
-        $('containerform3').innerHTML = " "
-    }
-        else{
-
-        }
-
 })
 a(1)
 
