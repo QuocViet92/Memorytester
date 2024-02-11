@@ -1,5 +1,3 @@
-
-
 function $(element) {
     return document.getElementById(element)
 }
@@ -388,23 +386,9 @@ function a(n) {
         }
         $(`containerform${i}`).style.width = `${100/n}%`
     }
-}
 
 const selectLevel = $('selectLevel')
 selectLevel.addEventListener('change',()=>{
     a(selectLevel.value)
 })
 a(1)
-
-
-
-
-
-
-
-
-
-
-
-
-

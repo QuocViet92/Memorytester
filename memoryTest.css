@@ -1,8 +1,7 @@
 body {
     margin: 0;
     font: 13px/1.5 'Helvetica Neue', Arial, 'Liberation Sans', FreeSans,
-        sans-serif;
-      
+        sans-serif;      
 }
 form {
     margin-top: 20px;
@@ -17,6 +16,9 @@ label{
 }
 
 .inputfiel {
+    display: flex;
+    flex-direction: column;
+    padding-left: 50px;
     position: relative;
     border: 1px solid black;
     padding-top: 20px;
@@ -87,7 +89,6 @@ label{
 .numberContent {
     color: red;
 }
-
 .container{   
     width: 100%;
     display: flex;
@@ -114,5 +115,4 @@ label{
     font-size: 20px;
 }
 .header > select{
-
 }
