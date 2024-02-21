@@ -1,12 +1,15 @@
 body {
     margin: 0;
     font: 13px/1.5 'Helvetica Neue', Arial, 'Liberation Sans', FreeSans,
-        sans-serif;
-        width: 100vw;
+        sans-serif;      
 }
 form {
     margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 70%;
 }
+
 label{
     margin-bottom: 0px;
     margin-top: 5px;
@@ -20,6 +23,12 @@ label{
     border: 1px solid black;
     padding-top: 20px;
     background-color: #f0f0f0;
+    
+
+}
+.inputfiel1{
+    display: flex;
+    flex-direction: column;
 }
 .element-float-left {
     float: left;
@@ -80,13 +89,27 @@ label{
 .numberContent {
     color: red;
 }
-
-.container{
-    width: 100%;    
-    display: flex;   
-    justify-content: space-around;
-
+.container{   
+    width: 100%;
+    display: flex;
 }
-.half{
-    width: 40%;
+.container2{
+    display: flex;
+}   
+
+.containerform2{
+    width: 45%;
+}
+.containerform3{
+    width: 30%;
+}
+
+.header{
+    padding: 20px;
+   text-align: center;
+}
+.header > label{
+    font-size: 20px;
+}
+.header > select{
 }

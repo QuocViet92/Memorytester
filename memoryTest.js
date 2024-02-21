@@ -1,148 +1,178 @@
+function $(element) {
+    return document.getElementById(element)
+}
 
 
+function createElement(elementName, attrs, children) {
+    const element = document.createElement(elementName);
 
-class App{
-    constructor(formId){
-        this.data=[]
-        this.soMuc = 0
-        this.loaiNoiDung = "so"
-        this.soDong = ''
-        this.arrMax =''
-        this.arrMin =''
-        this.numberMax= ''
-        this.numberMin = ''
-        this.thuTuCoDinh = true
-        this.thoiGianAn = 1000
-        this.thoiGianHien = 2000
-        this.i=0
-        this.count =0
-        this.myTime
-        this.text =''
-        this.formStyles=''
-        this.inputStringStyles=''
-        this.form = formId  
+    if (attrs && typeof attrs === 'object') {
+      for (var key in attrs) {
+        if (attrs.hasOwnProperty(key)) {
+          element.setAttribute(key, attrs[key]);
+        }
+      }
     }
 
-    $(element) {
-        return document.getElementById(element)
+    if (children && children.length > 0) {
+      for (var i = 0; i < children.length; i++) {
+        element.appendChild(children[i]);
+      }
+    }
+  
+    return element;
+  }
+
+class App{
+    constructor(id){
+        this._data=[]
+        this._soMuc = 0
+        this._loaiNoiDung = "so"
+        this._soDong = ''
+        this._arrMax =''
+        this._arrMin =''
+        this._numberMax= ''
+        this._numberMin = ''
+        this._thuTuCoDinh = false
+        this._thoiGianAn = 1000
+        this._thoiGianHien = 2000
+        this._i=0
+        this._count =0
+        this._myTime
+        this._text =''
+        this._formStyles=''
+        this._inputStringStyles=''
+        this._inputString=''
+        this._formId = id  
+    }
+    _$(idPart){
+return $(`${this._formId}${idPart}`)
     }
 
     creatHtml(){
-        const form = document.getElementById(this.form);
-        var html =` <form >
-        <div class="inputfiel" id="${this.form}-form-hiden">
-        <div class="title">Điều kiện kiểm tra</div>
-        <label class="grid_1">Số mục kiểm tra</label>
-        <input class="grid_1" id="${this.form}-so-muc" type="text" value="5" />
-        <div class="row_space"></div>
-        <label class="grid_1">Loại nội dung</label>
-        <select class="grid_1" id="${this.form}-select-content">
-            <option value="so">Số</option>
-            <option value="bienso">Biển Số</option>
-        </select>
-        <label class="element-float-left grid_2">Số dòng; Độ dài mỗi dòng (vd: 3-5; 2-3)</label>
-            <input class="grid_1" type="text" id="${this.form}-inputString" />
-        <div class="row_space"></div>
-        <label class="grid_1">Sử dụng thứ tự cổ định</label>
-        <span class="grid_1">
-            <input class="check-box" type="checkbox" id="${this.form}-radomItem" />
-        </span>
-        <div class="row_space"></div>
-        <label class="grid_2">Thời gian giữa 2 mục (mili-giây)</label>
-        <input class="grid_1" type="text" value="5000" id="${this.form}-time-hide" />
-        <div class="row_space"></div>
-        <label class="grid_2">Thời gian hiển thị mỗi mục (mili-giây)</label>
-        <input class="grid_1" type="text" id="${this.form}-time-show" value="1000" />
-        <div class="row_space"></div>
-    </div>
-    <div class="btn-control">
-        <button class="grid_1" id="${this.form}-btn" type="button">bắt đầu</button>
-        <button class="grid_1" id="${this.form}-btn-pause" type="button" disabled>tạm dừng</button>
-        <button class="grid_1" id="${this.form}resume" type="button" disabled >tiếp tục</button>
-        <button class="grid_1" type="button" id="${this.form}-btn-endGame" disabled >kết thúc</button>
-        <button class="grid_1" type="button" id="${this.form}-btnReStart" disabled >bắt đầu lại</button>
-        <button class="grid_1" id="${this.form}-btn-show" type="button" disabled >hiện kết quả</button>
-    </div>
-    </form>
-    <div class="row_space"></div>
-        <div class="message">
-            <div id="${this.form}inner-Text"></div>
-        </div>`
+        const form = document.getElementById(`container1`);
+       
+      const formHtml=createElement('div',{class:`container-Form${this._formId}`,id:`containerform${this._formId}`},[
+       createElement('form',
+       {id:`${this._formId}-form`},
+            [createElement('div',{class:'inputfiel',id:`${this._formId}-form-hiden`},
+                 [createElement('div',{class:'title'},[document.createTextNode("Điều kiện kiểm tra")]),
+                  createElement('label',{class:'grid_1'},[document.createTextNode("Số mục kiểm tra")]),
+                  createElement('input',{class:'grid_1',id:`${this._formId}-so-muc`,type:'text',value:5},[]),
+                  createElement('div',{class:'row_space'},[]),
+                  createElement('label',{class:'grid_1'},[document.createTextNode('Loại nội dung')]),
+                  createElement('select',{class:'grid_1',id:`${this._formId}-select-content`},[
+                        createElement('option',{value:'so'},[document.createTextNode("Số")]),
+                        createElement('option',{value:'bienso'},[document.createTextNode("Biển Số")])
+                  ]),
+                  createElement('label',{class:'element-float-left grid_2',id:`${this._formId}-inputString-styles`},[document.createTextNode('Số dòng; Độ dài mỗi dòng (vd: 3-5; 2-3)')]),
+                  createElement('input',{class:'grid_1',type:'text',id:`${this._formId}-inputString`},[]),
+                  createElement('div',{class:'row_space'},[]),
+                  createElement('label',{class:'grid_1'},[document.createTextNode('Sử dụng thứ tự cố định')]),
+                  createElement('span',{class:'grid_1'},[
+                        createElement('input',{class:'checkbox',type:'checkbox',id:`${this._formId}-radomItem`},[])
+                  ]),
+                  createElement('div',{class:'row_space'},[]),
+                  createElement('label',{class:'grid_2'},[document.createTextNode('thời gian giữa hai mục (mili-giây)')]),
+                  createElement('input',{class:'grid_1',type:'text',value:5000,id:`${this._formId}-time-hide`},[]),
+                  createElement('div',{class:'row_space'},[]),
+                  createElement('label',{class:'grid_2'},[document.createTextNode('Thời gian hiển thị mỗi mục (mili-giây)')]),
+                  createElement('input',{class:'grid_1',type:'text',id:`${this._formId}-time-show`,value:1000},[])
+
+                  ]
+            ),
+             createElement('div',{class:'btn-control'},[
+                  createElement('button',{class:'grid_1',id:`${this._formId}-btn`,type:'button'},[document.createTextNode('bắt đầu')]),
+                  createElement('button',{class:'grid_1',id:`${this._formId}-btn-pause`,type:'button',disabled:true},[document.createTextNode('tạm dừng')]),
+                  createElement('button',{class:'grid_1',id:`${this._formId}resume`,type:'button', disabled:true},[document.createTextNode('tiếp tục')]),
+                  createElement('button',{class:'grid_1',id:`${this._formId}-btn-endGame`,type:'button', disabled:true},[document.createTextNode('kết thúc')]),
+                  createElement('button',{class:'grid_1',id:`${this._formId}-btnReStart`,type:'button', disabled:true},[document.createTextNode('bắt đầu lại')]),
+                  createElement('button',{class:'grid_1',id:`${this._formId}-btn-show`,type:'button', disabled:true},[document.createTextNode('hiện kết quả')]),
+             ])
+            ]
+       ),
+       createElement('div',{class:'message'},[
+            createElement('div',{id:`${this._formId}inner-Text`})
+       ])
+    ])
         
-        form.innerHTML = html
+        form.appendChild(formHtml) 
 
-        const soMuc = this.$(`${this.form}-so-muc`)
-        const content = this.$(`${this.form}-select-content`)
-        const soDong = this.$(`${this.form}-inputString`)
-        const thuTuCoDinh = this.$(`${this.form}-radomItem`)
-        const thoiGianAn = this.$(`${this.form}-time-hide`)
-        const thoiGianHien = this.$(`${this.form}-time-show`)
-
-        this.formStyles = this.$(`${this.form}-form-hiden`)
-        this.inputStringStyles=this.$(`${this.form}-inputString-styles`)
-        this.text = this.$(`${this.form}inner-Text`)
         
 
-        const btnPause = this.$(`${this.form}-btn-pause`)
-        const btnStart = this.$(`${this.form}-btn`)
-        const btnResume =this.$(`${this.form}resume`)
-        const btnEndGame = this.$(`${this.form}-btn-endGame`)
-        const btnReStart =this.$(`${this.form}-btnReStart`)
-        const btnShow = this.$(`${this.form}-btn-show`)
+
+        const soMuc = this._$('-so-muc')
+        const content = this._$('-select-content')
+        const soDong = this._$('-inputString')
+        const thuTuCoDinh = this._$('-radomItem')
+        const thoiGianAn = this._$('-time-hide')
+        const thoiGianHien = this._$('-time-show')
+
+        this._formStyles = this._$('-form-hiden')
+        this._inputStringStyles= this._$('-inputString-styles')
+        this._inputString = this._$('-inputString')
+        this._text = this._$('inner-Text')
+        
+
+        const btnPause = this._$('-btn-pause')
+        const btnStart = this._$('-btn')
+        const btnResume = this._$('resume')
+        const btnEndGame = this._$('-btn-endGame')
+        const btnReStart = this._$('-btnReStart')
+        const btnShow = this._$('-btn-show')
 
         content.addEventListener('change',()=>{
+            this._loaiNoiDung = content.value
             this.changeInputString()
         })
 
         btnStart.addEventListener("click",()=>{
-            this.loaiNoiDung = content.value
+            this._loaiNoiDung = content.value
             btnStart.disabled = true
             btnPause.disabled = false
             btnResume.disabled = true
             btnEndGame.disabled = false
             btnReStart.disabled =true
             btnShow.disabled =  true
-            this.formStyles.style.display = 'none'
-            this.data =[]
-            this.soMuc = soMuc.value
-            this.soDong =   soDong.value
-            this.thuTuCoDinh = thuTuCoDinh.value
-            this.thoiGianAn = thoiGianAn.value
-            this.thoiGianHien = thoiGianHien.value
-            this.StartMemoryTest()
+            this._formStyles.style.display = 'none'
+            this._data =[]
+            this._soMuc = soMuc.value
+            this._soDong =   soDong.value
+            this._thuTuCoDinh = thuTuCoDinh.checked
+            this._thoiGianAn = thoiGianAn.value
+            this._thoiGianHien = thoiGianHien.value
+            this.startMemoryTest()
         })
 
         btnPause.addEventListener('click',()=>{
-            console.log('pause')
             btnStart.disabled = true
             btnPause.disabled = true
             btnResume.disabled = false
             btnEndGame.disabled = false
             btnReStart.disabled =true
             btnShow.disabled =  true
-            clearInterval(this.myTime)
+            clearInterval(this._myTime)
         })
 
         btnResume.addEventListener('click',()=>{
-            console.log('Resume')
             btnStart.disabled = true
             btnPause.disabled = false
             btnResume.disabled = true
             btnEndGame.disabled = false
             btnReStart.disabled =true
             btnShow.disabled =  true
-            this.setupTime(this.data,Number(this.thoiGianHien),Number(this.thoiGianAn))
+            this.checkItem()
         })
 
         btnEndGame.addEventListener('click',()=>{
-            this.formStyles.style.display = 'block'
+            this._formStyles.style.display = 'block'
             btnStart.disabled = false
             btnPause.disabled = true
             btnResume.disabled = true
             btnEndGame.disabled = true
             btnReStart.disabled =false
             btnShow.disabled =  false
-            this.EndMemoryTest()
+            this.endMemoryTest()
         })
 
         btnReStart.addEventListener('click',()=>{
@@ -152,118 +182,113 @@ class App{
             btnEndGame.disabled = false
             btnReStart.disabled =true
             btnShow.disabled =  true
-            this.RestartMemoryTest()
+            this.restartMemoryTest()
         })
         
         btnShow.addEventListener('click',()=>{
             btnReStart.disabled = true
             btnShow.disabled =  true
-            this.ShowNumberMemoryTest()
+            this.showNumberMemoryTest()
           
         })
     }
 
-    StartMemoryTest(){      
+    startMemoryTest(){      
         let arrayOfPairs
         const regex =  /^\d+-\d+;\d+-\d+$/
-        if (regex.test(this.soDong)) {
-            arrayOfPairs = this.soDong.split(';')
+        if (regex.test(this._soDong)) {
+            arrayOfPairs = this._soDong.split(';')
             const pair1 = arrayOfPairs[0].split('-')
             const pair2 = arrayOfPairs[1].split('-')
-            this.arrMin = parseInt(pair1[0], 10)  
-            this.arrMax = parseInt(pair1[1], 10)
-            this.numberMin = parseInt(pair2[0], 10) 
-            this.numberMax= parseInt(pair2[1], 10) 
+            this._arrMin = parseInt(pair1[0], 10)  
+            this._arrMax = parseInt(pair1[1], 10)
+            this._numberMin = parseInt(pair2[0], 10) 
+            this._numberMax= parseInt(pair2[1], 10) 
         }    else {
-            this.arrMin = 1
-            this.arrMax = 2
-            this.numberMin = 3
-            this.numberMax = 4
+            this._arrMin = 1
+            this._arrMax = 2
+            this._numberMin = 3
+            this._numberMax = 4
         }
 
-        if(this.loaiNoiDung ==="so"){
-            console.log("so")
-            this.arrNumber(this.soMuc,this.arrMax,this.arrMin,this.numberMax,this.numberMin)
-            console.log(this.data)
-            
+        if(this._loaiNoiDung ==="so"){
+            this.arrNumber(this._soMuc,this._arrMax,this._arrMin,this._numberMax,this._numberMin)           
         }
             else{
-                this.arrrRadom(this.soMuc)
+                this.arrrRadom(this._soMuc)
             }
 
-            this.i= 0
-            this.count = 0
-            this.setupTime(this.data,Number(this.thoiGianHien),Number(this.thoiGianAn))
+            this._i= 0
+            this._count = 0
+            this.checkItem()
     }
 
-    RestartMemoryTest(){
-        this.formStyles.style.display = 'none'
-        this.i = 0
-        this.count = 0
-        this.setupTime(this.data,Number(this.thoiGianHien),Number(this.thoiGianAn))
+    restartMemoryTest(){
+        this._formStyles.style.display = 'none'
+        this._i = 0
+        this._count = 0
+        this.checkItem()
     }
 
-    EndMemoryTest(){
-        clearInterval(this.myTime)
-        this.i = 0
-        this.count = 0
+    endMemoryTest(){
+        clearInterval(this._myTime)
+        this._i = 0
+        this._count = 0
     }
 
-    ShowNumberMemoryTest(){
-        this.text.style.visibility = 'visible'
+    showNumberMemoryTest(){
+        this._text.style.visibility = 'visible'
         let html = ''
-        if (this.loaiNoiDung == 'so') {
-            for (let i = 0; i < this.data.length; i++) {
-                html += `<div class="showContent" > <span class='numberContent'>${i}</span> </br> ${this.data[
+        if (this._loaiNoiDung == 'so') {
+            for (let i = 0; i < this._data.length; i++) {
+                html += `<div class="showContent" > <span class='numberContent'>${i}</span> </br> ${this._data[
                     i
                 ].join('</br>')} </br> </br> </div>`
             }
-        } else if ((this.loaiNoiDung) == 'bienso') {
-            for (let i = 0; i < this.data.length; i++) {
-                html += ` <div class="showContent"><span class="numberContent"> ${i} </span> </br> ${this.data[i]} </br>  </br> </div>`
+        } else if ((this._loaiNoiDung) == 'bienso') {
+            for (let i = 0; i < this._data.length; i++) {
+                html += ` <div class="showContent"><span class="numberContent"> ${i} </span> </br> ${this._data[i]} </br>  </br> </div>`
             }
         }
-        clearInterval(this.myTime)
-        this.text.innerHTML = html
-        this.count = 0
+        clearInterval(this._myTime)
+        this._text.innerHTML = html
+        this._count = 0
     }
      
     setupTime(arr,a, b) {
-        this.end=true
-        this.myTime = setInterval(() => {
-            if (this.count == a + b) {
-                this.i++
-                this.count = 0
+        this._myTime = setInterval(() => {
+            if (this._count == a + b) {
+                this._i++
+                this._count = 0
             }
-            if (this.i < arr.length) {
-                if (this.count == 0) {
-                    if (this.loaiNoiDung == 'so')
-                        this.text.innerHTML = `<div class='showContent'><span class='numberContent'>${this.i}</span> </br> ${arr[this.i].join('</br>')}</div>`
-                      } else if (this.loaiNoiDung == 'bienso') {
-                    this.text.innerHTML = `<div class='showContent'><span class='numberContent'>${this.i}</span> </br> ${arr[this.i]}</div>`
+            if (this._i < arr.length) {
+                if (this._count == 0) {
+                    if (this._loaiNoiDung == 'so')
+                        this._text.innerHTML = `<div class='showContent'><span class='numberContent'>${this._i}</span> </br> ${arr[this._i].join('</br>')}</div>`
+                      } else if (this._loaiNoiDung == 'bienso') {
+                    this._text.innerHTML = `<div class='showContent'><span class='numberContent'>${this._i}</span> </br> ${arr[this._i]}</div>`
                  }
-                if (this.count > a) {
-                    this.text.style.visibility = 'hidden'
+                if (this._count > a) {
+                    this._text.style.visibility = 'hidden'
                 } else {
-                    this.text.style.visibility = 'visible'
+                    this._text.style.visibility = 'visible'
                 }
             } else {
-                this.text.style.visibility = 'visible'
-                this.text.innerHTML = '...'
-                clearInterval(this.myTime)
+                this._text.style.visibility = 'visible'
+                this._text.innerHTML = '...'
+                clearInterval(this._myTime)
                 setTimeout(() => {
-                    this.$(`${this.form}-btn`).disabled =false
-                    this.$(`${this.form}-btn-pause`).disabled =true
-                    this.$(`${this.form}resume`).disabled =true
-                    this.$(`${this.form}-btn-endGame`).disabled =true
-                    this.$(`${this.form}-btnReStart`).disabled =false
-                    this.$(`${this.form}-btn-show`).disabled =false
-                    this.formStyles.style.display = 'block'
+                    this._$('-btn').disabled =false
+                    this._$('-btn-pause').disabled =true
+                    this._$('resume').disabled =true
+                    this._$('-btn-endGame').disabled =true
+                    this._$('-btnReStart').disabled =false
+                    this._$('-btn-show').disabled =false
+                    this._formStyles.style.display = 'block'
                     console.log('end')
                 }, 1000)
             }
-            this.count = this.count + 100
-            console.log(this.count)
+            this._count = this._count + 100
         }, 100)
     }
 
@@ -288,7 +313,7 @@ class App{
 
     arrrRadom(a) {
         for (let i = 0; i < a; i++) {
-            this.data.push(this.generateRandomString())
+            this._data.push(this.generateRandomString())
         }
     }
 
@@ -308,25 +333,73 @@ class App{
             const radomLengthNumber =
             Math.floor(Math.random() * (numberMax - numberMin + 1)) + numberMin
             Number.push(this.radomLengthNumbers(radomLengthNumber))
-            console.log(radomLengthNumber)
         }
         return Number
     }
 
     arrNumber(ar, max, min, numberMax, numberMin) {
         for (let i = 0; i < ar; i++) {
-            this.data.push(this.radomLengthArrs(max, min, numberMax, numberMin))
+            this._data.push(this.radomLengthArrs(max, min, numberMax, numberMin))
         }
     }
 
+    checkItem(){
+        if(this._thuTuCoDinh === false){
+            const radomItem =[]
+    
+            while (radomItem.length < this._data.length) {
+                const randomIndex = Math.floor(Math.random() * this._data   .length);
+                const randomElement = this._data[randomIndex]
+                radomItem.push(randomElement);
+              }
+              
+              this.setupTime(radomItem,Number(this._thoiGianHien), Number(this._thoiGianAn))
+        }
+            else{
+                this.setupTime(this._data,Number(this._thoiGianHien), Number(this._thoiGianAn))
+            }
+    }
+
      changeInputString() {
-        if (this.loaiNoiDung === 'so') {
-            this.inputStringStyles.style.display = 'block'
-        } else {
-            this.inputStringStyles.style.display = 'none'
+        if (this._loaiNoiDung == 'so') {
+            this._inputStringStyles.style.display = 'block'
+            this._inputString.style.display= 'block'
+        } else if(this._loaiNoiDung == 'bienso'){
+            this._inputStringStyles.style.display = 'none'
+            this._inputString.style.display= 'none'
         }
     }   
 }
 
-new App('form1').creatHtml()
-new App('form2').creatHtml()
+function initializeTesters(n) {
+    document.getElementById(`container1`).innerHTML =""
+    for (let i = 1; i <= n; i++) {
+        new App(i).creatHtml()
+        if(n > 1 ){
+            $(`${i}-form-hiden`).classList.add('hafl')
+        }
+        $(`containerform${i}`).style.width = `${100/n}%`
+    }
+
+const selectLevel = $('selectLevel')
+selectLevel.addEventListener('change',()=>{
+    initializeTesters(selectLevel.value)
+})
+<<<<<<< HEAD
+initializeTesters(1)
+
+
+
+
+
+
+
+
+
+
+
+
+
+=======
+a(1)
+>>>>>>> d625fe4e815dcaf1b7f927a9331aba522edf4843
