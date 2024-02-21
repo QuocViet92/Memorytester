@@ -1,5 +1,3 @@
-
-
 function $(element) {
     return document.getElementById(element)
 }
@@ -382,12 +380,12 @@ function initializeTesters(n) {
         }
         $(`containerform${i}`).style.width = `${100/n}%`
     }
-}
 
 const selectLevel = $('selectLevel')
 selectLevel.addEventListener('change',()=>{
     initializeTesters(selectLevel.value)
 })
+<<<<<<< HEAD
 initializeTesters(1)
 
 
@@ -402,3 +400,6 @@ initializeTesters(1)
 
 
 
+=======
+a(1)
+>>>>>>> d625fe4e815dcaf1b7f927a9331aba522edf4843
