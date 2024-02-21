@@ -102,10 +102,7 @@ label{
 .containerform3{
     width: 30%;
 }
-.hafl{
-   display: flex;
-   flex-direction: column;
-}
+
 .header{
     padding: 20px;
    text-align: center;
